@@ -33,7 +33,15 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+# Скопировать entrypoint и дать права
+COPY php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Add XDebug configuration
 COPY docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 WORKDIR /var/www/html
+
+# Установим entrypoint и CMD
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]

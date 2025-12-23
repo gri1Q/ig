@@ -23,13 +23,23 @@ services:
       - ./:/var/www/html
       - ./docker/php.ini:/usr/local/etc/php/php.ini
       - ./docker/logs/xdebug:/var/log/xdebug
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ""                # можно оставить пустым — entrypoint сгенерирует
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
     depends_on:
       - db
       - redis
     networks:
       - laravel
     extra_hosts:
-      -   "host.docker.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
 
   db:
     image: mysql:8.0

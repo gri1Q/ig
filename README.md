@@ -1,12 +1,13 @@
-# 1 Зайти в баш
-docker-compose exec php-fpm bash
-# 2 Установить зависимости
-composer install
-# 3 Запустить миграции
-php artisan migrate
-# 4 Запустить сиды
-php artisan db:seed
-# 5 Сделать запрос через браузер или постман
+# 1 Выполнить в терминале 
+docker compose up -d
+# 2 Подождать пару минут, должны установиться все зависимости и сиды после поднятия образа
+проверить можно с помощщью команды
+docker logs -f php-fpm-test
+![img_1.png](img_1.png)
+как появится надпись:
+[23-Dec-2025 10:57:14] NOTICE: fpm is running, pid 1
+[23-Dec-2025 10:57:14] NOTICE: ready to handle connections
+значит можно использовать апи
 http://127.0.0.1:82/api/v1/games
 ![img.png](img.png)
 
